@@ -7,6 +7,10 @@ export CB_PROFILE="DEFAULT"
 export CB_BOOKMARKS="$CB_DIR/$CB_PROFILE.lst"
 export CB_EDITOR="$(which cat)"
 
-cb -h | grep Usage &>/dev/null
+# Cleanup
+cleanup() { rm -rf $WORKDIR; exit $1; }
+trap 'cleanup $?' EXIT
+
+cb -h | grep Usage
 
 

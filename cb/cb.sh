@@ -1,7 +1,6 @@
 #!/bin/bash
 
 cb() {
-set -x
 [[ -z ${CB_DIR} ]]	&&	export CB_DIR="$HOME/.cb"
 [[ -z ${CB_PROFILE} ]] &&	export CB_PROFILE="DEFAULT"
 [[ -z ${CB_BOOKMARKS} ]] && 	export CB_BOOKMARKS="$CB_DIR/$CB_PROFILE.lst"
@@ -57,23 +56,21 @@ while true; do
 		rc=22
 		break
 		;;
-	[0-9]+)
+	[0-9]*)
 		CB_FIND="$(cb_cat | awk 'NR=='$1'{print $0}' | head -n 1)"
 		[[ -z ${CB_FIND} ]] && rc=127
-		cd $CB_FIND
+		eval cd $CB_FIND
 		break
 		;;
 	*)
-		[[ -z $1 ]] && cd $(cb_cat | head -n 1) && break
+		[[ -z $1 ]] && eval cd $(cb_cat | head -n 1) && break
 		CB_FIND="$(cb_cat | awk '/'$*'/{print $0}' | head -n 1)"
-		[[ -z ${CB_FIND} ]] && rc=255
-		cd $CB_FIND 
+		[[ -z ${CB_FIND} ]] && rc=255 || eval cd $CB_FIND 
 		break
 		;;
   esac
   [[ -z ${1} ]] && break
 done
-set +x
 return $rc
 }
-[[ -z ${@} ]] || cb $@
+[[ -z ${@} ]] && export -f cb || cb $@ 
