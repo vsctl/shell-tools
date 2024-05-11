@@ -44,7 +44,7 @@ while true; do
 	-p|--profile)
 		shift
 		if [[ -z $1 || ${1:0:1} == - ]]; then
-		 	ls $CB_DIR
+		 	ls -1 $CB_DIR
 		else
 			export CB_PROFILE="$1"
 			export CB_BOOKMARKS="$CB_DIR/$CB_PROFILE.lst"

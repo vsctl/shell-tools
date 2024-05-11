@@ -1,10 +1,10 @@
 #!/bin/bash
 
 cbc() {
-[[ -z ${CBC_DIR} ]]	&&	export CB_DIR="$HOME/.cbc"
-[[ -z ${CBC_PROFILE} ]] &&	export CB_PROFILE="DEFAULT"
-[[ -z ${CBC_BOOKMARKS} ]] && 	export CB_BOOKMARKS="$CB_DIR/$CB_PROFILE.lst"
-[[ -z ${CBC_EDITOR} ]] &&	export CB_EDITOR="${EDITOR:-xdg-open}"
+[[ -z ${CBC_DIR} ]]	&&	export CBC_DIR="$HOME/.cbc"
+[[ -z ${CBC_PROFILE} ]] &&	export CBC_PROFILE="DEFAULT"
+[[ -z ${CBC_BOOKMARKS} ]] && 	export CBC_BOOKMARKS="$CBC_DIR/$CBC_PROFILE.lst"
+[[ -z ${CBC_EDITOR} ]] &&	export CBC_EDITOR="${EDITOR:-xdg-open}"
 
 [[ -d $CBC_DIR ]] || mkdir -p "$CBC_DIR"
 
@@ -45,7 +45,7 @@ while true; do
 	-p|--profile)
 		shift
 		if [[ -z $1 || ${1:0:1} == - ]]; then
-		 	ls $CBC_DIR
+		 	ls -1 $CBC_DIR
 		else
 			export CBC_PROFILE="$1"
 			export CBC_BOOKMARKS="$CBC_DIR/$CBC_PROFILE.lst"
@@ -64,7 +64,7 @@ while true; do
 		break
 		;;
 	*)
-		[[ -z $1 ]] && eval $(cbc_cat | head -n 1) && break
+		[[ -z $1 ]] && cbc_cat && break
 		CBC_FIND="$(cbc_cat | awk '/'$*'/{print $0}' | head -n 1)"
 		[[ -z ${CBC_FIND} ]] && rc=255 || eval $CBC_FIND 
 		break
