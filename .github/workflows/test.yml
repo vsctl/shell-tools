@@ -18,7 +18,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: fedora-latest
+    runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -26,8 +26,13 @@ jobs:
       - uses: actions/checkout@v4
 
       # Runs a single command using the runners shell
+      # Ubuntu doesn't supply default wordlist and pollutes /usr/share/dict with README.select-wordlist, ugh gross.
       - name: Run a one-line script
-        run: ./tests/test.sh
+        run: |
+          sudo apt update -y
+          sudo apt install -y spell
+          sudo apt remove -y dictionaries-common
+          ./tests/test.sh
         shell: bash
       
       - name: Archive artifacts
