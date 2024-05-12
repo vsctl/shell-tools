@@ -29,3 +29,10 @@ jobs:
       - name: Run a one-line script
         run: ./tests/test.sh
         shell: bash
+      
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: output
+          path: |
+            'tests/output.*/**'
