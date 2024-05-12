@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -ex
 
 WORKDIR="$(mktemp -d)"
 
@@ -21,3 +21,5 @@ cleanup() { rm -rf $WORKDIR; exit $1; }
 trap 'cleanup $?' EXIT
 
 cb -p | grep DEFAULT
+cb -p DELME
+cb -p | grep DELME

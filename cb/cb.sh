@@ -48,6 +48,7 @@ while true; do
 		else
 			export CB_PROFILE="$1"
 			export CB_BOOKMARKS="$CB_DIR/$CB_PROFILE.lst"
+			touch $CB_BOOKMARKS
 			shift
 		fi
 		;;

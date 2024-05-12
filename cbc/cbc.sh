@@ -49,6 +49,7 @@ while true; do
 		else
 			export CBC_PROFILE="$1"
 			export CBC_BOOKMARKS="$CBC_DIR/$CBC_PROFILE.lst"
+			touch $CBC_BOOKMARKS
 			shift
 		fi
 		;;
