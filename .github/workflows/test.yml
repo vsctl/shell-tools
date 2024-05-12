@@ -35,4 +35,4 @@ jobs:
         with:
           name: output
           path: |
-            'tests/output.*/**'
+            tests/output.*/**
